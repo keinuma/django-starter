@@ -57,3 +57,12 @@ def response_getter(request):
     response.set_cookie('spam', 'egg')
 
     return response
+
+
+def pages(request, id):
+    return HttpResponse('idは = {}です'.format(id))
+
+
+def news(request, slug):
+    return HttpResponse('slugは = {}です'.format(slug))
+

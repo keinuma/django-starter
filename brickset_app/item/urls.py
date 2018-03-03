@@ -15,4 +15,8 @@ urlpatterns = [
     url(r'^post$', views.post_requester, name='post'),
 
     url(r'^response/$', views.response_getter, name='response'),
+
+    url(r'^pages/(?P<id>\d+)/$', views.pages, name='pages'),
+
+    url(r'^news/(?P<slug>[-\w]+)/$', views.news, name='news'),
 ]
