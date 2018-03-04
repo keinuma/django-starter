@@ -24,6 +24,9 @@ urlpatterns = [
     # itemアプリケーションのURL設定を追加
     url(r'^item/', include('item.urls')),
 
+    # legoアプリケーションのURL設定を追加
+    url(r'^lego/', include('lego.urls')),
+
     # 管理サイト
     url('^admin/', admin.site.urls),
 ]
