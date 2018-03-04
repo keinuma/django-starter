@@ -17,9 +17,16 @@ Including another URLconf
 # url()関数、include関数のインポート
 from django.conf.urls import include, url
 from django.contrib import admin
-# from django.urls import path
+from django.urls import path
+
+from django.contrib.auth.views import login, logout
+
 
 urlpatterns = [
+
+    # ログイン、ログアウト
+    path('accounts/login/', login, {'template_name': 'accounts/login.html'}, name='login'),
+    path('accounts/logout/', logout, {'next_page': '/accounts/login/'}, name='logout'),
 
     # itemアプリケーションのURL設定を追加
     url(r'^item/', include('item.urls')),
