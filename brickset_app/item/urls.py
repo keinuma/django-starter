@@ -19,4 +19,6 @@ urlpatterns = [
     url(r'^pages/(?P<id>\d+)/$', views.pages, name='pages'),
 
     url(r'^news/(?P<slug>[-\w]+)/$', views.news, name='news'),
+
+    url(r'^now/$', views.now, name='now'),
 ]

@@ -5,6 +5,8 @@ from django.http import HttpResponse
 # TemplateResponseクラスのインポート
 from django.template.response import TemplateResponse
 
+import datetime
+
 
 # hello()関数
 def hello(request):
@@ -66,3 +68,9 @@ def pages(request, id):
 def news(request, slug):
     return HttpResponse('slugは = {}です'.format(slug))
 
+
+def now(request):
+    context = {
+        'today': datetime.date.today()
+    }
+    return TemplateResponse(request, 'item/today.html', context=context)
