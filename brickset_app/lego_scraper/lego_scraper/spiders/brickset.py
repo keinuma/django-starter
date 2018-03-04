@@ -15,7 +15,9 @@ class BricksetSpider(scrapy.Spider):
 
             # セット名を取得
             name = brickset.css('div.highslide-caption h1::text').extract_first()
-            print(number, name)
+
+            # 価格を取得
+            price = meta.xpath('.//dt[text()="RRP"]/following-sibling::dd/text()')
             yield {
                 'number': number,
                 'name': name,
@@ -24,7 +26,12 @@ class BricksetSpider(scrapy.Spider):
                 'subtheme': meta.css('.tags a.subtheme::text').extract_first(),
                 'year': meta.css('.rating::attr(title)').extract_first(),
                 'owner': brickset.css('dl.admin dd').re_first('(\d+) own this set'),
-                'want_it': brickset.css('dl.admin dd').re_first('(\d+) want it')
+                'want_it': brickset.css('dl.admin dd').re_first('(\d+) want it'),
+                'rating': meta.css('.rating::attr(title)').extract_first(),
+                'pieces': meta.xpath('.//dt[text()="Pieces"]/following-sibling::dd').css('::text').extract_first(),
+                'minifigs': meta.xpath('.//dt[text()="Minifigs"]/following-sibling::dd').css('::text').extract_first(),
+                'us_price': price.re_first('\$(\d+\.\d+)'),
+                'eu_price': price.re_first('\d+\.\d+ €'),
             }
             next_url = response.css('li.next a::attr("href")').extract_first()
             if next_url:
