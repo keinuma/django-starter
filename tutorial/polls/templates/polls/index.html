@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en-us">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
 </head>
 <body>
 {% if latest_question_list %}
@@ -15,4 +17,5 @@
     <p>No polls are available.</p>
 {% endif %}
 </body>
+
 </html>
