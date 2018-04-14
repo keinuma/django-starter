@@ -9,13 +9,30 @@ class Genre(models.Model):
     """
     name = models.CharField(
         max_length=200,
-        help_text='Enter a book genre (e.g. Science Fiction, French Poetry etc.'
+        help_text='Enter a book genre (e.g. Science Fiction, French Poetry etc.)'
     )
 
     def __str__(self):
         """
         Setting for representing the Model object.
         :return str self.name: genre name
+        """
+        return self.name
+
+
+class Language(models.Model):
+    """
+    Model representing a book language
+    """
+    name = models.CharField(
+        max_length=200,
+        help_text='Enter a book language (e.g. English, Spanish, Japanese etc.)'
+    )
+
+    def __str__(self):
+        """
+        Setting for representing the Model object
+        :return:
         """
         return self.name
 
@@ -33,6 +50,7 @@ class Book(models.Model):
 
     # ManyToManyField used because genre can contain many books. Books can cover many genre.
     genre = models.ManyToManyField(Genre, help_text='Select for a genre for this book')
+    language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         """
@@ -68,3 +86,40 @@ class BookInstance(models.Model):
 
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True,
                               default='m', help_text='Book availability')
+
+    class Meta:
+        ordering = ['due_back']
+
+    def __str__(self):
+        """
+        String for representing the Model object
+        :return:
+        """
+        return '{0} ({1})'.format(self.id, self.book.title)
+
+
+class Author(models.Model):
+    """
+    Model representing an author.
+    """
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    date_of_both = models.DateField(null=True, blank=True)
+    date_of_death = models.DateField('Died', null=True, blank=True)
+
+    class Meta:
+        ordering = ['last_name', 'first_name']
+
+    def get_absolute_url(self):
+        """
+        Return the url to access a particular author instance
+        :return:
+        """
+        return reverse('author-detail', args=[str(self.id)])
+
+    def __str__(self):
+        """
+        String for representing the Model object
+        :return:
+        """
+        return '{0}, {1}'.format(self.last_name, self.first_name)
