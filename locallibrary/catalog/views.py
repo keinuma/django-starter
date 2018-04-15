@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views import generic
 
 from .models import Book, BookInstance, Author, Genre, Language
 
@@ -23,7 +24,7 @@ def index(request):
     # Render the HTML template index. html with the data in the context variable
     return render(
         request,
-        'index.html',
+        'catalog/index.html',
         context={
             'num_books': num_books,
             'num_instances': num_instances,
@@ -33,3 +34,7 @@ def index(request):
             'num_genre_miss': num_genre_miss,
         }
     )
+
+
+class BookListView(generic.ListView):
+    model = Book
