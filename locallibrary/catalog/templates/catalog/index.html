@@ -20,5 +20,6 @@
       <li><strong>Books contain 'miss':</strong> {{ num_books_miss }}</li>
       <li><strong>Genre contain 'miss':</strong> {{ num_genre_miss }}</li>
   </ul>
+  <p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
 
 {% endblock %}
