@@ -72,7 +72,7 @@ class Book(models.Model):
         :return:
         """
         return ', '.join([genre.name for genre in self.genre.all()[:3]])
-    display_genre.short_description = 'Genre'
+        display_genre.short_description = 'Genre'
 
 
 class BookInstance(models.Model):
