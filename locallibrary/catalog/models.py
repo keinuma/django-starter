@@ -1,6 +1,8 @@
 import uuid
+from datetime import date
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class Genre(models.Model):
@@ -72,7 +74,7 @@ class Book(models.Model):
         :return:
         """
         return ', '.join([genre.name for genre in self.genre.all()[:3]])
-        display_genre.short_description = 'Genre'
+    display_genre.short_description = 'Genre'
 
 
 class BookInstance(models.Model):
@@ -95,6 +97,8 @@ class BookInstance(models.Model):
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True,
                               default='m', help_text='Book availability')
 
+    borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
     class Meta:
         ordering = ['due_back']
 
@@ -104,6 +108,12 @@ class BookInstance(models.Model):
         :return:
         """
         return '{0} ({1})'.format(self.id, self.book.title)
+
+    @property
+    def is_overdue(self):
+        if self.due_back and date.today() > self.due_back:
+            return True
+        return False
 
 
 class Author(models.Model):
