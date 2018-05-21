@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<p>HTTPヘッダ情報の表示</p>
+<ul>
+    {% for key, val in headers.items %}
+    <li> {{ key }} = {{ val }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
