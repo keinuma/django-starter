@@ -19,5 +19,6 @@ urlpatterns = [
     # ex: /polls/5/vote/
     path('<int:question_id>/vote/', views.vote, name='vote'),
 
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('api/choices/<int:choice_id>/vote/', views.VoteView.as_view()),
 ]

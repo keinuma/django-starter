@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import generics
+from rest_framework.response import Response
 
 from .models import Question, Choice
 from .serializers import QuestionSerializer, ChoiceSerializer
@@ -64,3 +66,16 @@ class QuestionViewSet(ModelViewSet):
 class ChoiceViewSet(ModelViewSet):
     queryset = Choice.objects.all()
     serializer_class = ChoiceSerializer
+
+
+class VoteView(generics.CreateAPIView):
+    serializer_class = ChoiceSerializer
+    def post(self, request, choice_id, *args, **kwargs):
+        obj = generics.get_object_or_404(
+            queryset=Choice.objects.all(),
+            id=choice_id,
+        )
+        obj.votes += 1
+        obj.save()
+        s = ChoiceSerializer(instance=obj)
+        return Response(s.data)
