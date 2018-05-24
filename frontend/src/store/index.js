@@ -14,10 +14,12 @@ const mutations = {
   loggedIn (state, token) {
     state.isLoggedIn = true
     client.defaults.headers.common['Authorization'] = `JWT ${token}`
+    localStorage.setItem('token', token)
   },
   loggedOut (state) {
     state.isLoggedIn = false
     delete client.defaults.headers.common['Authorization']
+    localStorage.clear()
   },
 }
 
@@ -30,6 +32,12 @@ const actions = {
   },
   logout ({commit}) {
     commit('loggedOut')
+  },
+  tryLoggedIn ({commit}) {
+    const token = localStorage.getItem('token')
+    if (token) {
+      commit('loggedIn', token)
+    }
   },
 }
 
