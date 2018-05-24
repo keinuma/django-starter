@@ -11,7 +11,7 @@ class ChoiceSerializer(serializers.ModelSerializer):
 
 class QuestionSerializer(serializers.ModelSerializer):
     choices = ChoiceSerializer(
-        many=True, source='choice_setZZ',
+        many=True, source='choice_set',
     )
 
     class Meta:
