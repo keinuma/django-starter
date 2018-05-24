@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     fetchData () {
-      axios.get('http://localhost:8000/polls/api/questions/').then(res => {
+      axios.get(`${process.env.API_ENDPOINT}questions/`).then(res => {
         this.questions = res.data.results
       })
     },
@@ -57,7 +57,7 @@ export default {
       if (!this.vote) {
         return
       }
-      axios.post(`http://localhost:8000/polls/api/choices/${this.vote}/vote/`).then(res => {
+      axios.post(`${process.env.API_ENDPOINT}choices/${this.vote}/vote/`).then(res => {
         this.fetchData()
       })
     },
