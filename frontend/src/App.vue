@@ -25,7 +25,7 @@ export default {
     this.tryLoggedIn()
   },
   methods: {
-    ...mapActions(['login', 'logout']),
+    ...mapActions(['login', 'logout', 'tryLoggedIn']),
   },
 }
 </script>

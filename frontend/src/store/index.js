@@ -36,6 +36,14 @@ const actions = {
   tryLoggedIn ({commit}) {
     const token = localStorage.getItem('token')
     if (token) {
+      client.auth.verify(token).then(() => {
+        commit('loggedIn', token)
+      }, () => {
+        // 不正なtoken
+        localStorage.clear()
+      })
+    }
+    if (token) {
       commit('loggedIn', token)
     }
   },

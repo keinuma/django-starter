@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token
 
 from polls import views
 
@@ -16,6 +16,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api/auth/', obtain_jwt_token),
+    path('api/auth/verify/', verify_jwt_token),
     path('api/', include(router.urls)),
     path('api/choices/<int:choice_id>/vote/', views.VoteView.as_view()),
 ]
