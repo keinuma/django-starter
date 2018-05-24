@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 import api from './api'
+import store from './store'
 
 Vue.config.productionTip = false
 
@@ -14,6 +15,7 @@ Vue.use(api)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: { App },
   template: '<App/>',
