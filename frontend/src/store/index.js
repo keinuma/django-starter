@@ -42,6 +42,12 @@ const actions = {
         // 不正なtoken
         localStorage.clear()
       })
+<<<<<<< HEAD
+=======
+    }
+    if (token) {
+      commit('loggedIn', token)
+>>>>>>> f66c4f5fbed62a269fbec28167f65f0b75b0c6a3
     }
   },
 }
