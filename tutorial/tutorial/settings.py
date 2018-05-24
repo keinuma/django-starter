@@ -152,6 +152,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
+CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
     'PAGE_SIZE': 100,
@@ -171,5 +172,3 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     )
 }
-
-CORS_ORIGIN_ALLOW_ALL = True
