@@ -17,7 +17,7 @@
                     :value="choice.id">
                   </v-radio>
                 </v-radio-group>
-                <v-btn color="success">投票</v-btn>
+                <v-btn @click="doVote" color="success" :disabled="!voteEnable(data.choices)">投票</v-btn>
               </v-card-text>
               <v-card-text>
                 <div>{{ data.pubDate|printDate }}</div>
@@ -52,6 +52,20 @@ export default {
       axios.get('http://localhost:8000/polls/api/questions/').then(res => {
         this.questions = res.data.results
       })
+    },
+    doVote () {
+      if (!this.vote) {
+        return
+      }
+      axios.post(`http://localhost:8000/polls/api/choices/${this.vote}/vote/`).then(res => {
+        this.fetchData()
+      })
+    },
+    voteEnable (choices) {
+      if (!this.vote) {
+        return false
+      }
+      return choices.some(x => x.id === this.vote)
     },
   },
   mounted () {
